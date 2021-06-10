@@ -3,10 +3,8 @@
 import ply.lex as lex
 import os
 
-# lista de tokens
 tokens = (
 
-    # Palabras Reservadas
     'INCLUDE',
     'USING',
     'NAMESPACE',
@@ -23,8 +21,6 @@ tokens = (
     'VOID',
     'WHILE',
     'FOR',
-
-    # Simbolos del sistema
     'HASH',
     'POINT',
     'PLUS',
@@ -155,16 +151,12 @@ def t_NUMBER(t):
     t.value = int(t.value)
     return t
 
-#exprecion regular para reconocer los identificadores
-
-
 def t_ID(t):
     r'\w+(_\d\w)*'
     return t
 
 
 def t_STRING(t):
-#expresion RE para reconocer los String
     r'\"?(\w+ \ *\w*\d* \ *)\"?'
     return t
 
@@ -227,7 +219,7 @@ def t_comments_C99(t):
 
 
 def t_error(t):
-    print (("Error Lexico: " + str(t.value[0])))
+    print (("Lexical error found: " + str(t.value[0])))
     t.lexer.skip(1)
 
 
@@ -241,33 +233,5 @@ def test(data, lexer):
         print (tok)
 
 lexer = lex.lex()
-
-def Analizador_lexico():
-    a = raw_input("direccion: ")
-    if ( os.path.exists (a)):
-        f = open(a)
-        data = f.read()
-        f.close()
-        #Build lexer and try on
-        lexer.input(data)
-        test(data, lexer)
-    else:
-        print ("El archivo no existe")
-
-
-# Test
-if __name__ == '__main__':
-
-    # Test  ESTO ES SOLO PARA PROBAR EL FUNCINAMIENTO DE ANIZADOR LEXICO.
-    #Cargamos el archivo "c.cpp" que esta en la carpeta ejemplos y lo guardamos
-    #la variable data para despues enviarla al analizador lexico para que la
-    #descomponga en tokes
-
-    f = open('c.cpp')
-    data = f.read()
-    f.close()
-    #Build lexer and try on
-    lexer.input(data)
-    test(data, lexer)
 
 
